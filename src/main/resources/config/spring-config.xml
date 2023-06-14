@@ -2,20 +2,31 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <!--    <bean class="com.baeldung.springbootxml.Pojo">-->
-    <!--        <property name="field" value="sample-value"></property>-->
+
+<!--    <context:component-scan base-package="com.malarska"/>-->
+
+    <!--    <bean id="task" class="com.malarska.knightsgame.domain.Task" scope="prototype"/>-->
+
+    <!--    <bean id="richard" class="com.malarska.knightsgame.domain.Knight" primary="true" scope="prototype">-->
+    <!--        <constructor-arg index="0" value="RichardByXML"/>-->
+    <!--        <constructor-arg index="1" value="35"/>-->
+    <!--        <property name="task" ref="task"/>-->
     <!--    </bean>-->
 
-    <context:component-scan base-package="com.malarska"/>
-    <import resource="classpath:config/castle-config.xml" />
+    <!--    <bean id="wales" class="com.malarska.knightsgame.domain.Knight" scope="prototype">-->
+    <!--        <constructor-arg index="0" value="WalesByXML"/>-->
+    <!--        <constructor-arg index="1" value="19"/>-->
+    <!--        <property name="task" ref="task"/>-->
+    <!--    </bean>-->
 
-    <bean id="task" class="com.malarska.knightsgame.domain.Task"/>
-    <bean id="knight" class="com.malarska.knightsgame.domain.Knight">
-        <constructor-arg index="0" value="MieszkoPierwszy"/>
-        <constructor-arg index="1" value="29"/>
-        <property name="task" ref="task"/>
-    </bean>
+
+    <task:scheduler id="myScheduler" pool-size="10" />
+        <task:scheduled-tasks>
+            <task:scheduled ref="taskRepository" method="createRandomTask" fixed-rate="1000"/>
+        </task:scheduled-tasks>
 </beans>
