@@ -11,12 +11,6 @@ public class Knight {
     private Task task;
 
     public Knight() {
-        this.name = "Richard";
-        this.age = 44;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public Knight(String name, int age) {
@@ -32,8 +26,21 @@ public class Knight {
         this.name = name;
     }
 
+    public int getAge() {
+        return this.age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public Task getTask() {
         return task;
+    }
+
+    public void setTask(Task task) {
+        System.out.println("Spring sets task for KNIGHT called: " + name);
+        this.task = task;
     }
 
     @Override
@@ -49,17 +56,9 @@ public class Knight {
         return Objects.hash(age);
     }
 
-    public void setTask(Task task) {
-        System.out.println("Spring sets task for KNIGHT called: " + name);
-        this.task = task;
-    }
-
     @Override
     public String toString() {
         return "Knight with name: " + name + " ( " + age + " ). Task: " + task + ".";
     }
 
-    public int getAge() {
-        return this.age;
-    }
 }

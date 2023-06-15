@@ -1,12 +1,12 @@
 package com.malarska.knightsgame.controllers;
 
 import com.malarska.knightsgame.domain.Knight;
-import com.malarska.knightsgame.domain.repository.KnightRepository;
 import com.malarska.knightsgame.service.KnightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -23,4 +23,15 @@ public class KnightController {
         return "knights";
     }
 
+    @RequestMapping("/newknight")
+    public String createKnight(Model model){
+        model.addAttribute("knight", new Knight());
+        return "knightform";
+    }
+
+    @RequestMapping(value = "/knights", method = RequestMethod.POST)
+    public String saveKnight(Knight knight) {
+        knightService.saveKnight(knight);
+        return "redirect:/knights";
+    }
 }

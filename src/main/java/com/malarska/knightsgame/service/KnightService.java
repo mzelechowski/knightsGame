@@ -17,4 +17,9 @@ public class KnightService {
     public List<Knight> getAllKnights() {
         return new ArrayList<>(knightRepository.getAllKnights());
     }
+
+    public void saveKnight(Knight knight) {
+        knightRepository.createKnight(knight);
+
+    }
 }
