@@ -11,12 +11,15 @@
 </head>
 <body>
 <div class="container">
+    Aktualny czas <span th:text="${timecomponent.time}"/>
+    Posiadane zloto <span th:text="${playerinformation.gold}"/>
+
 <h1>List of Knights</h1>
 <table class="table">
     <thead>
         <tr>
             <td>Id</td>
-            <td>Knight's name</td>
+            <td>Name</td>
             <td>Experience</td>
             <td></td>
             <td></td>
