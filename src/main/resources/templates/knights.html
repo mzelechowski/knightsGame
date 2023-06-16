@@ -11,19 +11,24 @@
 </head>
 <body>
 <div class="container">
-<h1> Rycerze </h1>
+<h1>List of Knights</h1>
 <table class="table">
     <thead>
-        <tr><td>Knight's name</td>
+        <tr>
+            <td>Id</td>
+            <td>Knight's name</td>
             <td>Experience</td>
+            <td></td>
             <td></td>
         </tr>
     </thead>
     <tbody th:each="knight : ${knights}">
          <tr>
+             <td th:text="${knight.id}"></td>
             <td th:text="${knight.name}"></td>
             <td th:text="${knight.experience}"></td>
              <td><a th:href="${'/knight?id='+knight.id}" >Show all data</a></td>
+             <td><a th:href="${'/knight/delete/'+knight.id}" >Delete knight</a></td>
         </tr>
     </tbody>
 </table>

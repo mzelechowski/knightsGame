@@ -15,6 +15,7 @@ public class Knight {
     private Task task;
 
     public Knight() {
+        this.experience=1;
     }
 
     public Knight(String name, int age) {

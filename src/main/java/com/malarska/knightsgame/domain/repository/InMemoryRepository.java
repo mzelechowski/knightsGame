@@ -28,7 +28,10 @@ public class InMemoryRepository implements KnightRepository {
             return 0;
         }
         else {
-            Integer integer = knights.keySet().stream().max(Integer::max).get();
+            //Integer integer = knights.keySet().stream().max(Integer::max).get();
+           Integer integer= knights.keySet()
+                    .stream()
+                    .max(Integer::compareTo).get();
             return integer+1;
         }
     }
@@ -54,6 +57,8 @@ public class InMemoryRepository implements KnightRepository {
     public void build() {
         createKnight("Władysław", 29);
         createKnight("Stanisław", 44);
+        createKnight("Bogusław", 44);
+        createKnight("Ryszard", 66);
     }
 
     @Override
