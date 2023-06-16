@@ -22,10 +22,10 @@ public class TaskService {
 
     final static Random rand = new Random();
 
-    public void assignRandomQuest(String knightName) {
+    public void assignRandomQuest(String name) {
         List<Task> allTasks = taskRepository.getAll();
         Task randomTask = taskRepository.getAll().get(rand.nextInt(allTasks.size()));
-        knightRepository.getKnight(knightName).setTask(randomTask);
+        knightRepository.getKnight(name).ifPresent(knight -> knight.setTask(randomTask));
         taskRepository.deleteTask(randomTask);
     }
 }

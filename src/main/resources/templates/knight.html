@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+  <title>Knights list</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
+
+  <script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+  Name: <p th:text="${knight.name}"></p>
+  Age: <p th:text="${knight.age}"></p>
+  Experience: <p th:text="${knight.experience}"></p>
+  Task: <p th:text="${knight.task}"></p>
+  <a href="/knights" >Back to list of Knights</a>
+</div>
+</body>
+</html>

@@ -4,9 +4,13 @@ import java.util.Objects;
 
 public class Knight {
 
+    private int id;
+
     private String name;
 
     private int age;
+
+    private int experience;
 
     private Task task;
 
@@ -16,6 +20,15 @@ public class Knight {
     public Knight(String name, int age) {
         this.name = name;
         this.age = age;
+        this.experience=1;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -34,6 +47,14 @@ public class Knight {
         this.age = age;
     }
 
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
     public Task getTask() {
         return task;
     }
@@ -42,6 +63,7 @@ public class Knight {
         System.out.println("Spring sets task for KNIGHT called: " + name);
         this.task = task;
     }
+
 
     @Override
     public boolean equals(Object o) {

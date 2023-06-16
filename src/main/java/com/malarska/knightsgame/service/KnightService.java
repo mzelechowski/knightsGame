@@ -22,4 +22,8 @@ public class KnightService {
         knightRepository.createKnight(knight);
 
     }
+
+    public Knight getKnight(Integer id) {
+        return knightRepository.getKnightById(id);
+    }
 }
