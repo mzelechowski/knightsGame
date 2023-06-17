@@ -1,6 +1,7 @@
 package com.malarska.knightsgame.domain.repository;
 
 import com.malarska.knightsgame.domain.Knight;
+import com.malarska.knightsgame.utils.Ids;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
@@ -19,21 +20,8 @@ public class InMemoryRepository implements KnightRepository {
     @Override
     public void createKnight(String name, int age) {
         Knight newKnight = new Knight(name, age);
-        newKnight.setId(getNewId());
+        newKnight.setId(Ids.generateNewId(knights.keySet()));
         knights.put(newKnight.getId(), newKnight);
-    }
-
-    public int getNewId() {
-        if(knights.isEmpty()) {
-            return 0;
-        }
-        else {
-            //Integer integer = knights.keySet().stream().max(Integer::max).get();
-           Integer integer= knights.keySet()
-                    .stream()
-                    .max(Integer::compareTo).get();
-            return integer+1;
-        }
     }
 
     @Override
@@ -63,7 +51,7 @@ public class InMemoryRepository implements KnightRepository {
 
     @Override
     public void createKnight(Knight knight) {
-        knight.setId(getNewId());
+        knight.setId(Ids.generateNewId(knights.keySet()));
         knights.put(knight.getId(), knight);
     }
 

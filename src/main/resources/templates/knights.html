@@ -21,6 +21,7 @@
             <td>Id</td>
             <td>Name</td>
             <td>Experience</td>
+            <td>Task to do</td>
             <td></td>
             <td></td>
         </tr>
@@ -30,6 +31,11 @@
              <td th:text="${knight.id}"></td>
             <td th:text="${knight.name}"></td>
             <td th:text="${knight.experience}"></td>
+             <td>
+<!--                 <span th:if="${knight.task==null}" th:text="'no current task'". ></span>-->
+                 <span th:if="${knight.task==null}" >no current task<a th:href="${'/assignTask?knightId='+knight.id}"  >Assign task</a></span>
+                 <span th:if="${knight.task!=null}" th:text="${knight.task.description}" ></span>
+             </td>
              <td><a th:href="${'/knight?id='+knight.id}" >Show all data</a></td>
              <td><a th:href="${'/knight/delete/'+knight.id}" >Delete knight</a></td>
         </tr>

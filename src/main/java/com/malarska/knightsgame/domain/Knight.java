@@ -70,7 +70,7 @@ public class Knight {
     }
 
     public void setTask(Task task) {
-        System.out.println("Spring sets task for KNIGHT called: " + name);
+        task.setStarted(true);
         this.task = task;
     }
 
