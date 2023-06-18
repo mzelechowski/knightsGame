@@ -38,4 +38,8 @@ public class TaskService {
     public List<Task> getAllNotStartedTasks() {
        return taskRepository.getAll().stream().filter(t->!t.isStarted()).collect(Collectors.toList());
     }
+
+    public void update(Task task) {
+        taskRepository.update(task);
+    }
 }

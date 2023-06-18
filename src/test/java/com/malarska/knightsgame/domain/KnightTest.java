@@ -10,7 +10,7 @@ class KnightTest {
     public void testIfQuestMarkedAsStarted() {
 
         Knight knight = new Knight("Bolesław", 55);
-        Task task = new Task("Example test task");
+        Task task = new Task(1,"Example test task");
 
         knight.setTask(task);
 

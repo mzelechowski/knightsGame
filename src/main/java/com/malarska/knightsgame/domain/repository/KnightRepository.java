@@ -18,4 +18,6 @@ public interface KnightRepository {
     void createKnight(Knight knight);
 
     Knight getKnightById(Integer id);
+
+    void updateKnight(int id, Knight knight);
 }

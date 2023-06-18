@@ -6,7 +6,9 @@ import com.malarska.knightsgame.service.KnightService;
 import com.malarska.knightsgame.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
@@ -29,5 +31,14 @@ public class TaskController {
         model.addAttribute("knight", knight);
         model.addAttribute("notStartedTasks", notStartedTasks);
         return "assignTask";
+    }
+
+    @RequestMapping(value = "/assignTask", method = RequestMethod.POST)
+    public String assignTask(Knight knight) {
+        knightService.updateKnight(knight);
+        Task task = knight.getTask();
+        if(task!=null)
+            taskService.update(task);
+        return "redirect:/knights";
     }
 }

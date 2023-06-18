@@ -51,4 +51,10 @@ public class DBKnightRepository implements KnightRepository {
         System.out.println("Uzywam bazy danych");
         throw new UnsupportedOperationException("Method not yet implemented");
     }
+
+    @Override
+    public void updateKnight(int id, Knight knight) {
+        System.out.println("Uzywam bazy danych");
+        throw new UnsupportedOperationException("Method not yet implemented");
+    }
 }

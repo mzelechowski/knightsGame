@@ -32,9 +32,9 @@ class TaskServiceTest {
     @Test
     public void returnsNotStartedTasks() {
         List<Task> tasks = new ArrayList<>();
-        Task t1 = new Task("Test task 1");
-        Task t2 = new Task("Test task 2");
-        Task t3 = new Task("Test task 3");
+        Task t1 = new Task(1,"Test task 1");
+        Task t2 = new Task(2,"Test task 2");
+        Task t3 = new Task(3,"Test task 3");
 
         t2.setStarted(true);
 

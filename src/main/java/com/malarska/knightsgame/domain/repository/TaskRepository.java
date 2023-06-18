@@ -1,31 +1,32 @@
 package com.malarska.knightsgame.domain.repository;
 
 import com.malarska.knightsgame.domain.Task;
-import org.springframework.scheduling.annotation.Scheduled;
+import com.malarska.knightsgame.utils.Ids;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 @Repository
 public class TaskRepository {
 
     Random rand = new Random();
-    List<Task> taskList = new ArrayList<>();
+
+    Map<Integer, Task> tasks = new HashMap<>();
+
 
     public void createTask(String description) {
-        taskList.add(new Task(description));
+        int newId = Ids.generateNewId(tasks.keySet());
+        tasks.put(newId, new Task(newId, description));
     }
 
     public List<Task> getAll() {
-        return taskList;
+        return new ArrayList<>(tasks.values());
     }
 
     public void deleteTask(Task task) {
-        taskList.remove(task);
+        tasks.remove(task.getId());
     }
 
     @PostConstruct
@@ -35,7 +36,7 @@ public class TaskRepository {
     @Override
     public String toString() {
         return "TaskRepository{" +
-                "taskList=" + taskList +
+                "taskList=" + tasks +
                 '}';
     }
 
@@ -49,8 +50,17 @@ public class TaskRepository {
         descriptions.add("Take part in the tournament");
         descriptions.add("Kill dragon");
         descriptions.add("Find treasure");
+        descriptions.add("Find and Kill Goblins");
         String description = descriptions.get(rand.nextInt(descriptions.size()));
-        System.out.println("Create TASK  with description: "+ description);
+        System.out.println("(From method random task)Create TASK  with description: " + description);
         createTask(description);
+    }
+
+    public void update(Task task) {
+        tasks.put(task.getId(), task);
+    }
+
+    public Task getTask(Integer id) {
+        return tasks.get(id);
     }
 }

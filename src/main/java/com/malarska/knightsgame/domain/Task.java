@@ -1,6 +1,9 @@
 package com.malarska.knightsgame.domain;
 
 public class Task {
+
+    private int id;
+
     private String description;
 
     private int reward=100;
@@ -27,6 +30,14 @@ public class Task {
         this.lenght = lenght;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public boolean isStarted() {
         return started;
     }
@@ -43,7 +54,8 @@ public class Task {
         this.completed = completed;
     }
 
-    public Task(String description) {
+    public Task(int id,String description) {
+        this.id=id;
         this.description = description;
     }
 
