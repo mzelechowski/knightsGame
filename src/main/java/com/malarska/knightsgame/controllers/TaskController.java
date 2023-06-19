@@ -1,6 +1,7 @@
 package com.malarska.knightsgame.controllers;
 
 import com.malarska.knightsgame.domain.Knight;
+import com.malarska.knightsgame.domain.PlayerInformation;
 import com.malarska.knightsgame.domain.Task;
 import com.malarska.knightsgame.service.KnightService;
 import com.malarska.knightsgame.service.TaskService;
@@ -24,8 +25,11 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
+    @Autowired
+    PlayerInformation playerInformation;
+
     @RequestMapping("assignTask")
-        public String assignQuest(@RequestParam("knightId")  Integer id, Model model){
+    public String assignQuest(@RequestParam("knightId") Integer id, Model model) {
         Knight knight = knightService.getKnight(id);
         List<Task> notStartedTasks = taskService.getAllNotStartedTasks();
         model.addAttribute("knight", knight);
@@ -37,8 +41,21 @@ public class TaskController {
     public String assignTask(Knight knight) {
         knightService.updateKnight(knight);
         Task task = knight.getTask();
-        if(task!=null)
+        if (task != null)
             taskService.update(task);
+        return "redirect:/knights";
+    }
+
+    @RequestMapping(value = "/checkTasks")
+    public String checkTasks() {
+
+        List<Knight> allKnights = knightService.getAllKnights();
+        allKnights.forEach(knight -> knight.getTask().isCompleted());
+
+        int currentGold = playerInformation.getGold();
+
+        playerInformation.setGold(currentGold + knightService.collectRewards());
+
         return "redirect:/knights";
     }
 }

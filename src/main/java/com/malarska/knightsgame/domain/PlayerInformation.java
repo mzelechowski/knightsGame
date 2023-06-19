@@ -5,7 +5,8 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 @Component
-@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+// komentuje scope aby z componentu PlayerInformtion zrobić singletona.
+//@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 
 public class PlayerInformation {
 

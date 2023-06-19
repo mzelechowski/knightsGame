@@ -14,6 +14,7 @@ public class KnightService {
     @Autowired
     KnightRepository knightRepository;
 
+
     public List<Knight> getAllKnights() {
         return new ArrayList<>(knightRepository.getAllKnights());
     }
@@ -33,5 +34,18 @@ public class KnightService {
 
     public void updateKnight(Knight knight) {
         knightRepository.updateKnight(knight.getId(), knight);
+    }
+
+    public int collectRewards() {
+
+        int sum = knightRepository.getAllKnights().stream().filter(k -> k.getTask().isCompleted())
+                .mapToInt(k -> k.getTask().getReward())
+                .sum();
+
+        knightRepository.getAllKnights().stream().filter(k -> k.getTask().isCompleted())
+                .forEach(k -> k.setTask(null));
+
+        return sum;
+
     }
 }
