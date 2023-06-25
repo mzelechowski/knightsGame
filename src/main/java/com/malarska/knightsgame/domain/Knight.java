@@ -70,7 +70,9 @@ public class Knight {
     }
 
     public void setTask(Task task) {
-        task.setStarted(true);
+        if(task!=null) {
+            task.setStarted(true);
+        }
         this.task = task;
     }
 

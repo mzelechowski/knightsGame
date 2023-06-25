@@ -48,14 +48,7 @@ public class TaskController {
 
     @RequestMapping(value = "/checkTasks")
     public String checkTasks() {
-
-        List<Knight> allKnights = knightService.getAllKnights();
-        allKnights.forEach(knight -> knight.getTask().isCompleted());
-
-        int currentGold = playerInformation.getGold();
-
-        playerInformation.setGold(currentGold + knightService.collectRewards());
-
+        knightService.getMyGold();
         return "redirect:/knights";
     }
 }

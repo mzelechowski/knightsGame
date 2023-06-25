@@ -1,18 +1,23 @@
 package com.malarska.knightsgame.service;
 
 import com.malarska.knightsgame.domain.Knight;
+import com.malarska.knightsgame.domain.PlayerInformation;
 import com.malarska.knightsgame.domain.repository.KnightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Component
 public class KnightService {
 
     @Autowired
     KnightRepository knightRepository;
+
+    @Autowired
+    PlayerInformation playerInformation;
 
 
     public List<Knight> getAllKnights() {
@@ -38,14 +43,36 @@ public class KnightService {
 
     public int collectRewards() {
 
-        int sum = knightRepository.getAllKnights().stream().filter(k -> k.getTask().isCompleted())
-                .mapToInt(k -> k.getTask().getReward())
+        Predicate<Knight> knightPredicate = knight -> {
+            if (knight.getTask() != null) {
+                return knight.getTask().isCompleted();
+            } else {
+                return false;
+            }
+        };
+
+        int sum = knightRepository.getAllKnights().stream().filter(knightPredicate)
+                .mapToInt(knight -> knight.getTask().getReward())
                 .sum();
 
-        knightRepository.getAllKnights().stream().filter(k -> k.getTask().isCompleted())
-                .forEach(k -> k.setTask(null));
+        knightRepository.getAllKnights().stream().filter(knightPredicate).forEach(knight -> {
+            knight.setTask(null);
+        });
 
         return sum;
+    }
 
+    public void getMyGold() {
+
+        List<Knight> allKnights = getAllKnights();
+        allKnights.forEach(knight -> {
+                    if (knight.getTask() != null) {
+                        knight.getTask().isCompleted();
+                    }
+                }
+        );
+
+        int currentGold = playerInformation.getGold();
+        playerInformation.setGold(currentGold + collectRewards());
     }
 }
