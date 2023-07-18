@@ -80,9 +80,8 @@ public class Task {
         }
     }
 
-    public Task(int id, String description) {
-        this.id = id;
-        this.description = description;
+    public Task(String description) {
+             this.description = description;
     }
 
     public String getDescription() {
@@ -95,7 +94,15 @@ public class Task {
 
     @Override
     public String toString() {
-        return description;
+        return "Task{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", reward=" + reward +
+                ", lenghtInSeconds=" + lengthInSeconds +
+                ", started=" + started +
+                ", completed=" + completed +
+                ", startDate=" + startDate +
+                '}';
     }
 
 

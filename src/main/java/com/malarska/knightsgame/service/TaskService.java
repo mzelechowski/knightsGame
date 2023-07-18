@@ -3,6 +3,7 @@ package com.malarska.knightsgame.service;
 import com.malarska.knightsgame.domain.Task;
 import com.malarska.knightsgame.domain.repository.KnightRepository;
 import com.malarska.knightsgame.domain.repository.TaskRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,11 @@ import java.util.stream.Collectors;
 
 
 @Service
+@AllArgsConstructor
 public class TaskService {
 
-    @Qualifier("inMemoryKnightRepository")
+    //@Qualifier("inMemoryKnightRepository")
     KnightRepository knightRepository;
-
 
     TaskRepository taskRepository;
 
@@ -30,9 +31,9 @@ public class TaskService {
 
     public void assignRandomQuest(String name) {
         List<Task> allTasks = taskRepository.getAll();
-        Task randomTask = taskRepository.getAll().get(rand.nextInt(allTasks.size()));
+        Task randomTask = allTasks.get(rand.nextInt(allTasks.size()));
         knightRepository.getKnight(name).ifPresent(knight -> knight.setTask(randomTask));
-        taskRepository.deleteTask(randomTask);
+        //taskRepository.deleteTask(randomTask);
     }
 
     public List<Task> getAllNotStartedTasks() {

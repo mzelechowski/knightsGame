@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Component
 @Entity
 // komentuje scope aby z componentu PlayerInformtion zrobić singletona.
 //@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -21,6 +20,7 @@ public class PlayerInformation {
     private int id;
 
     private int gold=0;
+
 
     public int getGold() {
         return gold;

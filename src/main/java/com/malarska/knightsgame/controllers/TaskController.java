@@ -3,6 +3,7 @@ package com.malarska.knightsgame.controllers;
 import com.malarska.knightsgame.domain.Knight;
 import com.malarska.knightsgame.domain.PlayerInformation;
 import com.malarska.knightsgame.domain.Task;
+import com.malarska.knightsgame.domain.repository.PlayerInformationRepository;
 import com.malarska.knightsgame.service.KnightService;
 import com.malarska.knightsgame.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class TaskController {
     TaskService taskService;
 
     @Autowired
-    PlayerInformation playerInformation;
+    PlayerInformationRepository playerInformationRepository;
 
     @RequestMapping("assignTask")
     public String assignQuest(@RequestParam("knightId") Integer id, Model model) {

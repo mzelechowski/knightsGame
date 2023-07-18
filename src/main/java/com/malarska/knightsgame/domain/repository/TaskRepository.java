@@ -1,48 +1,43 @@
 package com.malarska.knightsgame.domain.repository;
 
 import com.malarska.knightsgame.domain.Task;
-import com.malarska.knightsgame.utils.Ids;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.*;
 
 
 @Repository
 public class TaskRepository {
 
+    @PersistenceContext
+    private EntityManager em;
+
     Random rand = new Random();
 
-    Map<Integer, Task> tasks = new HashMap<>();
-
-
+    @Transactional
     public void createTask(String description) {
-        int newId = Ids.generateNewId(tasks.keySet());
-        tasks.put(newId, new Task(newId, description));
+        Task newTask=new Task(description);
+        em.persist(newTask);
     }
 
     public List<Task> getAll() {
-        return new ArrayList<>(tasks.values());
+        return em.createQuery("from Task", Task.class).getResultList();
     }
 
+    @Transactional
     public void deleteTask(Task task) {
-        tasks.remove(task.getId());
-    }
-
-    @PostConstruct
-    public void init() {
-    }
-
-    @Override
-    public String toString() {
-        return "TaskRepository{" +
-                "taskList=" + tasks +
-                '}';
+        em.remove(task);
     }
 
     //@Scheduled(fixedDelay = 1000) // czas liczony gdy metoda wywoła się i zakończy działanie, dopiero wtedy liczy sekundę
     //@Scheduled(fixedRate = 1000, initialDelay = 3000)  // czas liczony jest od momentu wywołąnia metody, nie czeka na zakonczenie metody
-    //@Scheduled(fixedDelayString = "${taskCreationDelay}")  //pobierane wartości ze zwmiennej z application.properties
+    @Scheduled(fixedDelayString = "${taskCreationDelay}")  //pobierane wartości ze zwmiennej z application.properties
+    @Transactional
     public void createRandomTask() {
         List<String> descriptions = new ArrayList<>();
 
@@ -51,16 +46,18 @@ public class TaskRepository {
         descriptions.add("Kill dragon");
         descriptions.add("Find treasure");
         descriptions.add("Find and Kill Goblins");
+
         String description = descriptions.get(rand.nextInt(descriptions.size()));
-        System.out.println("(From method random task)Create TASK  with description: " + description);
         createTask(description);
     }
 
+    @Transactional
     public void update(Task task) {
-        tasks.put(task.getId(), task);
+        em.merge(task);
     }
 
+    @Transactional
     public Task getTask(Integer id) {
-        return tasks.get(id);
+        return em.find(Task.class, id);
     }
 }

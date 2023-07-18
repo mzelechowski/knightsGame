@@ -3,8 +3,11 @@ package com.malarska.knightsgame.service;
 import com.malarska.knightsgame.domain.Knight;
 import com.malarska.knightsgame.domain.PlayerInformation;
 import com.malarska.knightsgame.domain.repository.KnightRepository;
+import com.malarska.knightsgame.domain.repository.PlayerInformationRepository;
+import com.malarska.knightsgame.domain.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +20,10 @@ public class KnightService {
     KnightRepository knightRepository;
 
     @Autowired
-    PlayerInformation playerInformation;
+    TaskRepository taskRepository;
+
+    @Autowired
+    PlayerInformationRepository playerInformation;
 
 
     public List<Knight> getAllKnights() {
@@ -62,17 +68,22 @@ public class KnightService {
         return sum;
     }
 
+    @Transactional
     public void getMyGold() {
 
         List<Knight> allKnights = getAllKnights();
         allKnights.forEach(knight -> {
                     if (knight.getTask() != null) {
-                        knight.getTask().isCompleted();
+                        boolean completed = knight.getTask().isCompleted();
+
+                        if (completed) {
+                            taskRepository.update(knight.getTask());
+                        }
                     }
                 }
         );
-
-        int currentGold = playerInformation.getGold();
-        playerInformation.setGold(currentGold + collectRewards());
+        PlayerInformation first = playerInformation.getFirst();
+        int currentGold = first.getGold();
+        first.setGold(currentGold + collectRewards());
     }
 }
