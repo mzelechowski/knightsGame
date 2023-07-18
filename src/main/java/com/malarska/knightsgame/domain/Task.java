@@ -1,22 +1,30 @@
 package com.malarska.knightsgame.domain;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
 public class Task {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String description;
 
     private int reward = 100;
 
-    protected int lenghtInSeconds = 10;
+    protected int lengthInSeconds = 10;
 
     private boolean started = false;
 
     private boolean completed = false;
 
     protected LocalDateTime startDate;
+
+    public Task() {
+
+    }
 
     public int getReward() {
         return reward;
@@ -26,12 +34,12 @@ public class Task {
         this.reward = reward;
     }
 
-    public int getLenghtInSeconds() {
-        return lenghtInSeconds;
+    public int getLengthInSeconds() {
+        return lengthInSeconds;
     }
 
-    public void setLenghtInSeconds(int lenghtInSeconds) {
-        this.lenghtInSeconds = lenghtInSeconds;
+    public void setLengthInSeconds(int lenghtInSeconds) {
+        this.lengthInSeconds = lenghtInSeconds;
     }
 
     public int getId() {
@@ -60,7 +68,7 @@ public class Task {
         } else {
             LocalDateTime now = LocalDateTime.now();
 
-            LocalDateTime questEndDate = this.startDate.plusSeconds(this.lenghtInSeconds);
+            LocalDateTime questEndDate = this.startDate.plusSeconds(this.lengthInSeconds);
 
             boolean isAfter = now.isAfter(questEndDate);
 

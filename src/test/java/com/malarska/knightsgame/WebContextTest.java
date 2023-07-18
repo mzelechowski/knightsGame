@@ -3,6 +3,7 @@ import com.malarska.knightsgame.controllers.TaskController;
 import com.malarska.knightsgame.domain.PlayerInformation;
 import com.malarska.knightsgame.service.KnightService;
 import com.malarska.knightsgame.service.TaskService;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

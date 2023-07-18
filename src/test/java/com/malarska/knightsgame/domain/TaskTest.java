@@ -20,7 +20,7 @@ class TaskTest {
     public void questShouldBeCompleted() {
         Task task = new Task(1, "Test task");
         task.setStarted(true);
-        task.lenghtInSeconds = -60;
+        task.lengthInSeconds = -60;
         assertTrue(task.isCompleted());
     }
 
@@ -28,7 +28,7 @@ class TaskTest {
     public void questShouldNotBeCompleted() {
         Task task = new Task(1, "Test task");
         task.setStarted(true);
-        task.lenghtInSeconds = 2000;
+        task.lengthInSeconds = 2000;
         assertFalse(task.isCompleted());
     }
 

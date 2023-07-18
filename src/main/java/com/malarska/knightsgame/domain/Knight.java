@@ -2,13 +2,16 @@ package com.malarska.knightsgame.domain;
 
 import org.hibernate.validator.constraints.Range;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
-
+@Entity
 public class Knight {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
@@ -21,6 +24,7 @@ public class Knight {
 
     private int experience;
 
+    @OneToOne
     private Task task;
 
     public Knight() {
