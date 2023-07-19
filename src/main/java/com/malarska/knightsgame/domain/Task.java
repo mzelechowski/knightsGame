@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String description;
@@ -24,6 +24,9 @@ public class Task {
 
     public Task() {
 
+    }
+
+    public Task(int i, String testTask) {
     }
 
     public int getReward() {
@@ -94,15 +97,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", reward=" + reward +
-                ", lenghtInSeconds=" + lengthInSeconds +
-                ", started=" + started +
-                ", completed=" + completed +
-                ", startDate=" + startDate +
-                '}';
+        return  description;
     }
 
 

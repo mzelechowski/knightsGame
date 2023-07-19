@@ -16,14 +16,16 @@ import javax.persistence.Id;
 public class PlayerInformation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String username;
-    private String password;
 
     private int gold=0;
 
+
+    public PlayerInformation() {
+
+    }
 
     public int getGold() {
         return gold;

@@ -30,7 +30,6 @@ public class DBKnightRepository implements KnightRepository {
     public Optional<Knight> getKnight(String name) {
         Knight knightByName = em.createQuery("from Knight k where k.name=:name", Knight.class)
                 .setParameter("name", name).getSingleResult();
-
         return Optional.ofNullable(knightByName);
     }
 

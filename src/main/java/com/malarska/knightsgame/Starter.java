@@ -6,8 +6,6 @@ import com.malarska.knightsgame.domain.repository.PlayerInformationRepository;
 import com.malarska.knightsgame.domain.repository.TaskRepository;
 import com.malarska.knightsgame.service.TaskService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,15 +21,11 @@ public class Starter implements CommandLineRunner {
     TaskService taskService;
     PlayerInformationRepository playerInformationRepository;
 
-
     @Override
     @Transactional
     public void run(String... args) throws Exception {
 
-        taskRepository.createRandomTask();
-        taskRepository.createRandomTask();
-        taskRepository.createRandomTask();
-        taskRepository.createRandomTask();
+
         taskRepository.createRandomTask();
         knightRepository.createKnight("Władysław", 32);
         knightRepository.createKnight("Stanisław", 33);
