@@ -27,12 +27,5 @@ public class MainConfig {
         return repo;
     }
 
-    @Autowired
-    public void securityUsers(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user1").password("{noop}user1").roles("USER")
-                .and()
-                .withUser("user2").password("{noop}user2").roles("ADMIN");
-    }
 
 }
