@@ -51,7 +51,7 @@ public class TaskRepository {
     @Transactional
     public void createRandomTask() {
 
-        if((getAll().size() - getAll().stream().filter(t->t.isComp()==true).count() < 5 )){
+        if((getAll().size() - getAll().stream().filter(t->t.isComp()==true).count() < 7 )){
             List<String> descriptions = new ArrayList<>();
             descriptions.add("Saved princess");
             descriptions.add("Take part in the tournament");
