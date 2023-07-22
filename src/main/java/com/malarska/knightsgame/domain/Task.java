@@ -82,6 +82,9 @@ public class Task {
             return isAfter;
         }
     }
+    public boolean isComp() {
+        return this.completed;
+    }
 
     public Task(String description) {
              this.description = description;

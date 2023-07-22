@@ -30,7 +30,6 @@ public class TaskService {
         List<Task> allTasks = taskRepository.getAll();
         Task randomTask = allTasks.get(rand.nextInt(allTasks.size()));
         knightRepository.getKnight(name).ifPresent(knight -> knight.setTask(randomTask));
-        //taskRepository.deleteTask(randomTask);
     }
 
     public List<Task> getAllNotStartedTasks() {

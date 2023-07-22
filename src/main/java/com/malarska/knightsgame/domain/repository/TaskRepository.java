@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -34,23 +35,6 @@ public class TaskRepository {
         em.remove(task);
     }
 
-    //@Scheduled(fixedDelay = 1000) // czas liczony gdy metoda wywoła się i zakończy działanie, dopiero wtedy liczy sekundę
-    //@Scheduled(fixedRate = 1000, initialDelay = 3000)  // czas liczony jest od momentu wywołąnia metody, nie czeka na zakonczenie metody
-    @Scheduled(fixedDelayString = "${taskCreationDelay}")  //pobierane wartości ze zwmiennej z application.properties
-    @Transactional
-    public void createRandomTask() {
-        List<String> descriptions = new ArrayList<>();
-
-        descriptions.add("Saved princess");
-        descriptions.add("Take part in the tournament");
-        descriptions.add("Kill dragon");
-        descriptions.add("Find treasure");
-        descriptions.add("Find and Kill Goblins");
-
-        String description = descriptions.get(rand.nextInt(descriptions.size()));
-        createTask(description);
-    }
-
     @Transactional
     public void update(Task task) {
         em.merge(task);
@@ -59,5 +43,25 @@ public class TaskRepository {
     @Transactional
     public Task getTask(Integer id) {
         return em.find(Task.class, id);
+    }
+
+    //@Scheduled(fixedDelay = 1000) // czas liczony gdy metoda wywoła się i zakończy działanie, dopiero wtedy liczy sekundę
+    //@Scheduled(fixedRate = 1000, initialDelay = 3000)  // czas liczony jest od momentu wywołąnia metody, nie czeka na zakonczenie metody
+    @Scheduled(fixedDelayString = "${taskCreationDelay}")  //pobierane wartości ze zwmiennej z application.properties
+    @Transactional
+    public void createRandomTask() {
+
+        if((getAll().size() - getAll().stream().filter(t->t.isComp()==true).count() < 5 )){
+            List<String> descriptions = new ArrayList<>();
+            descriptions.add("Saved princess");
+            descriptions.add("Take part in the tournament");
+            descriptions.add("Kill dragon");
+            descriptions.add("Find treasure");
+            descriptions.add("Find and Kill Goblins");
+            descriptions.add("Catch wild horse");
+
+            String description = descriptions.get(rand.nextInt(descriptions.size()));
+            createTask(description);
+        }
     }
 }

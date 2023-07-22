@@ -25,16 +25,14 @@ public class Starter implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
 
-
+        taskRepository.createRandomTask();
+        taskRepository.createRandomTask();
         taskRepository.createRandomTask();
         knightRepository.createKnight("Władysław", 32);
         knightRepository.createKnight("Stanisław", 33);
+        knightRepository.createKnight("Sir Henry", 44);
         playerInformationRepository.createPlayerInformation(new PlayerInformation());
-//        System.out.println(knightRepository);
-        //taskService.assignRandomQuest("Władysław");
         taskService.assignRandomQuest("Stanisław");
-//        System.out.println(KnightRepository);
-//        System.out.println(taskRepository);
 
     }
 }

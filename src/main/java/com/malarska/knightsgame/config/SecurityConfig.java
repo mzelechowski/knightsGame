@@ -12,15 +12,21 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    public void configure (HttpSecurity security) throws Exception{
+    public void configure(HttpSecurity security) throws Exception {
 
         security.authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/h2-console").permitAll()
                 .antMatchers("/knights").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/knight/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().defaultSuccessUrl("/knights");
+
+        // this will ignore only h2-console csrf, spring security 4+
+        security.csrf().ignoringAntMatchers("/h2-console/**");
+        //this will allow frames with same origin which is much more safe
+        security.headers().frameOptions().sameOrigin();
     }
 
     @Autowired
